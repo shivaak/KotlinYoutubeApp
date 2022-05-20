@@ -4,8 +4,10 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="..\:/Android/KotlinYoutube/app/src/main/res/layout/activity_course_details.xml" value="0.21666666666666667" />
+        <entry key="..\:/Android/KotlinYoutube/app/src/main/res/layout/activity_course_lesson.xml" value="0.10955056179775281" />
         <entry key="..\:/Android/KotlinYoutube/app/src/main/res/layout/activity_main.xml" value="0.21666666666666667" />
         <entry key="..\:/Android/KotlinYoutube/app/src/main/res/layout/course_detail_layout.xml" value="0.33" />
+        <entry key="..\:/Android/KotlinYoutube/app/src/main/res/layout/progress.xml" value="0.3614583333333333" />
         <entry key="..\:/Android/KotlinYoutube/app/src/main/res/layout/row_layout.xml" value="0.33" />
       </map>
     </option>

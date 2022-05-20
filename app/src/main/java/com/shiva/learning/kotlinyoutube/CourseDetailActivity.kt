@@ -1,8 +1,10 @@
 package com.shiva.learning.kotlinyoutube
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -21,16 +23,20 @@ class CourseDetailActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = ActivityCourseDetailsBinding.inflate(layoutInflater);
-        setContentView(binding.root)
-        binding.recyclerViewMain.layoutManager = LinearLayoutManager(this)
+
+        if (savedInstanceState == null) {
+            binding = ActivityCourseDetailsBinding.inflate(layoutInflater);
+            setContentView(binding.root)
+            binding.recyclerViewMain.layoutManager = LinearLayoutManager(this)
 
 
-        //We'll change the nav bar title
-        val navBarTitle = intent.getStringExtra(MainAdapter.NAVBAR_TITLE_KEY)
-        val videoId = intent.getIntExtra(MainAdapter.VIDEO_ID_KEY, 0)
-        supportActionBar?.title = navBarTitle
-        fetchJson(videoId)
+            //We'll change the nav bar title
+            val navBarTitle = intent.getStringExtra(MainAdapter.NAVBAR_TITLE_KEY)
+            val videoId = intent.getIntExtra(MainAdapter.VIDEO_ID_KEY, 0)
+            supportActionBar?.title = navBarTitle
+            fetchJson(videoId)
+        }
+
     }
 
     fun fetchJson(id: Int) {
@@ -82,6 +88,14 @@ class CourseDetailActivity : AppCompatActivity() {
                     Picasso.get()
                         .load(imageUrl)
                         .into(holder.courseDetailLayoutBinding.imgCourseThumb);
+
+                    holder.itemView.setOnClickListener {
+                        var intent =
+                            Intent(holder.itemView.context, CourseLessonActivity::class.java)
+                        intent.putExtra("COURSE_URL", link)
+                        //   intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
+                        holder.itemView.context.startActivity(intent)
+                    }
 
                 }
             }
