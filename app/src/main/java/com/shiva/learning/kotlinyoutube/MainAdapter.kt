@@ -1,5 +1,6 @@
 package com.shiva.learning.kotlinyoutube
 
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -8,7 +9,13 @@ import androidx.recyclerview.widget.RecyclerView
 import com.shiva.learning.kotlinyoutube.databinding.RowLayoutBinding
 import com.squareup.picasso.Picasso
 
-class MainAdapter(val homeFeed: HomeFeed) : RecyclerView.Adapter<MainAdapter.CustomViewHolder>() {
+class MainAdapter(private val homeFeed: HomeFeed) :
+    RecyclerView.Adapter<MainAdapter.CustomViewHolder>() {
+
+    companion object {
+        val NAVBAR_TITLE_KEY = "NAVBAR_TITLE"
+        val VIDEO_ID_KEY = "VIDEO_ID"
+    }
 
     inner class CustomViewHolder(val rowLayoutBinding: RowLayoutBinding) :
         RecyclerView.ViewHolder(rowLayoutBinding.root)
@@ -22,6 +29,7 @@ class MainAdapter(val homeFeed: HomeFeed) : RecyclerView.Adapter<MainAdapter.Cus
 
     override fun onBindViewHolder(holder: CustomViewHolder, position: Int) {
         with(holder) {
+            val currentVideo = homeFeed.videos[position]
             with(homeFeed.videos[position]) {
                 rowLayoutBinding.txtChannelTitle.text = name
                 rowLayoutBinding.txtChannelName.text = "${channel.name} * 20k views \n 4 days ago"
@@ -33,10 +41,10 @@ class MainAdapter(val homeFeed: HomeFeed) : RecyclerView.Adapter<MainAdapter.Cus
                     .into(binding.topLearnerImage)*/
 
                 holder.itemView.setOnClickListener {
-                    Toast.makeText(
-                        holder.itemView.context, "Muruga",
-                        Toast.LENGTH_SHORT
-                    ).show()
+                    val intent = Intent(holder.itemView.context, CourseDetailActivity::class.java)
+                    intent.putExtra(NAVBAR_TITLE_KEY, currentVideo.name)
+                    intent.putExtra(VIDEO_ID_KEY, currentVideo.id)
+                    holder.itemView.context.startActivity(intent)
                 }
             }
         }
